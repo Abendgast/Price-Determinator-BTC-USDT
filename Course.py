@@ -5,7 +5,6 @@ import openpyxl
 from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
 
-# Получаем данные за последние 24 часа
 api_url = "https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USDT&limit=24&toTs=" + str(int(datetime.datetime.now().timestamp())) + "&api_key=YOUR_API_KEY"
 response = requests.get(api_url)
 data = json.loads(response.text)['Data']
@@ -16,7 +15,6 @@ next_row = 1
 while sheet['A' + str(next_row)].value is not None:
     next_row += 1
 
-# Записываем данные в файл
 for price_data in data:
     current_date = datetime.datetime.fromtimestamp(price_data['time']).strftime("%Y-%m-%d")
     current_time = datetime.datetime.fromtimestamp(price_data['time']).strftime("%H:00")
